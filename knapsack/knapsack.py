@@ -18,11 +18,13 @@ def knapsack_solver(items, capacity):
     if item['size'] <= capacity:
       # If item can fit, find selections and max value for other items and reduced capacity
       # Only higher indices used in recursion to prevent duplication (e.g. 1 then 2 vs 2 then 1)
+      # This reduces runtime complexity and implicitly sorts
       sub_selection = knapsack_solver([i for i in items if i['index'] < item['index']], capacity-item['size'])
       sub_selection['Chosen'].append(item['index'])
       sub_selection['Value'] += item['value']
       options.update({item['index']: sub_selection})
   # Determine option with maximum value to pass back to parent
+  # TO DO: improve runtime, get storage at least somewhat under control
   max_val = 'Null'
   for key in options.keys():
     if options[key]['Value'] > options[max_val]['Value']:
