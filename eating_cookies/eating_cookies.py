@@ -21,7 +21,7 @@ def eating_cookies(n, arr=None):
     #     arr[n] = ways
     # return ways
 
-    # # Second pass (iterative)
+    # # Second pass: iterative, O(n) runtime, O(n) storage
     # if n <= 1:
     #     return 1
     # if n == 2:
@@ -33,7 +33,7 @@ def eating_cookies(n, arr=None):
     #     arr[i] = arr[i-1] + arr[i-2] + arr[i-3]
     # return arr[n]
 
-    # Alternate version with O(1) storage: ring cache
+    # Alternate version with O(n) runtime, O(1) storage: ring cache
     # Initialize:
     cache = [1,1,2]
     count = 2 # == newest n
@@ -58,6 +58,7 @@ def eating_cookies(n, arr=None):
     # return trib(n+1)
     # # Gives rounding errors starting with n=54
     # # Gives overflow errors with very large n (definitely by 10k)
+    # # At n=10k, though, runtime for the previous version is still ~5ms
 
 
 if __name__ == "__main__":
