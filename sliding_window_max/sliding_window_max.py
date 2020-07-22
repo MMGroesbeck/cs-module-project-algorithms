@@ -3,6 +3,7 @@ Input: a List of integers as well as an integer `k` representing the size of the
 Returns: a List of integers
 '''
 # First pass: O(n*k); runs O(n) for small k, but can be improved.
+# Will need data structure for window with O(1) add/remove for each i
 def sliding_window_max(nums, k):
     # Your code here
     out_arr = []
