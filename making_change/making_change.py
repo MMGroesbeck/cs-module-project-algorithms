@@ -4,6 +4,7 @@ import sys
 
 def making_change(amount, denominations):
   # Your code here
+  # First pass: iterative, not recursive, but it may be faster this way.
   cache = [0 for i in range(amount + 1)]
   cache[0] = 1
   for den in denominations:
