@@ -57,6 +57,7 @@ def eating_cookies(n, arr=None):
     #     return round(3 * b * top / bottom)
     # return trib(n+1)
     # # Gives rounding errors starting with n=54
+    # # Gives overflow errors with very large n (definitely by 10k)
 
 
 if __name__ == "__main__":
