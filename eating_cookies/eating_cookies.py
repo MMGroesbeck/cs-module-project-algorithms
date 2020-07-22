@@ -46,6 +46,18 @@ def eating_cookies(n, arr=None):
         count += 1
     return cache[oldest-1]
 
+    # # Just because: O(1) storage, runtime same order as computing c^n:
+    # # eating_cookies(n) is the (n+1)th Tribonacci number, so:
+    # def trib(n):
+    #     a_plus = (19 + (3 * (33 ** (1/2))))**(1/3)
+    #     a_minus = (19 - (3 * (33 ** (1/2))))**(1/3)
+    #     b = (586 + (102 * (33 ** (1/2))))**(1/3)
+    #     top = ((1/3)*(a_plus + a_minus + 1))**n
+    #     bottom = (b**2) - (2*b) + 4
+    #     return round(3 * b * top / bottom)
+    # return trib(n+1)
+    # # Gives rounding errors starting with n=54
+
 
 if __name__ == "__main__":
     # Use the main function here to test out your implementation
