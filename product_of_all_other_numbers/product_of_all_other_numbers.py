@@ -2,11 +2,26 @@
 Input: a List of integers
 Returns: a List of integers
 '''
+
+# # First pass is in O(n) time and O(1) space, but uses division.
+# def product_of_all_other_numbers(arr):
+#     # Your code here
+#     # First version uses division
+#     prod = 1
+#     for n in arr:
+#         prod *= n
+#     return[prod / n for n in arr]
+
+# Second pass:
+import math
 def product_of_all_other_numbers(arr):
-    # Your code here
-
-    pass
-
+    prod_arr = [1 for i in range(len(arr))]
+    for i in range(len(arr)):
+        x = arr.pop(i)
+        prod_arr[i] = math.prod(arr)
+        arr.insert(i,x)
+    return prod_arr
+# O(n) space; time complexity depends on whether math.prod() runs an iterative loop behind the scenes
 
 if __name__ == '__main__':
     # Use the main function to test your implementation
