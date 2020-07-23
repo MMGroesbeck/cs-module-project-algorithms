@@ -33,18 +33,18 @@ def eating_cookies(n, arr=None):
     #     arr[i] = arr[i-1] + arr[i-2] + arr[i-3]
     # return arr[n]
 
-    # Alternate version with O(n) runtime, O(1) storage: ring cache
-    # Initialize:
-    cache = [1,1,2]
-    count = 2 # == newest n
-    oldest = 0 # == index of oldest returnable value
-    if n < 3:
-        return cache[n]
-    while count < n:
-        cache[oldest] = sum(cache)
-        oldest = 0 if oldest == 2 else oldest + 1
-        count += 1
-    return cache[oldest-1]
+    # # Alternate version with O(n) runtime, O(1) storage: ring cache
+    # # Initialize:
+    # cache = [1,1,2]
+    # count = 2 # == newest n
+    # oldest = 0 # == index of oldest returnable value
+    # if n < 3:
+    #     return cache[n]
+    # while count < n:
+    #     cache[oldest] = sum(cache)
+    #     oldest = 0 if oldest == 2 else oldest + 1
+    #     count += 1
+    # return cache[oldest-1]
 
     # # Just because: O(1) storage, runtime same order as computing c^n:
     # # eating_cookies(n) is the (n+1)th Tribonacci number, so:
@@ -59,6 +59,20 @@ def eating_cookies(n, arr=None):
     # # Gives rounding errors starting with n=54
     # # Gives overflow errors with very large n (definitely by 10k)
     # # At n=10k, though, runtime for the previous version is still ~5ms
+
+    # Cache + recursion:
+    if arr == None:
+        arr = [0 for i in range(n+1)]
+        arr[0] = 1
+    if n < 0:
+        return 0
+    if n == 0:
+        return 1
+    elif arr[n] > 0:
+        return arr[n]
+    else:
+        arr[n] = eating_cookies(n-1, arr) + eating_cookies(n-2, arr) + eating_cookies(n-3, arr)
+        return arr[n]
 
 
 if __name__ == "__main__":

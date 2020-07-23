@@ -6,6 +6,7 @@ Returns: a List of integers
 # First pass is in O(n) time and space, but uses division.
 def product_of_all_other_numbers(arr):
     # Your code here
+    # First version uses division
     prod = 1
     for n in arr:
         prod *= n
