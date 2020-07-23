@@ -166,17 +166,40 @@ Returns: a List of integers
 #     return out_arr[:leng - k]
 #  # Broken -- check indices
 
+# def sliding_window_max(nums, k):
+#     leng = len(nums)
+#     out_arr = [None for i in range(leng)]
+#     for i in range(leng):
+#         curr = max(0, leng-i-k)
+#         this_item = nums[leng-i-1]
+#         while curr < leng-i and (out_arr[curr] == None or out_arr[curr] < this_item):
+#             out_arr[curr] = this_item
+#             curr += 1
+#     return out_arr[:leng-k+1]
+# # Under 2 seconds -- major improvement!
+
+# Rough mock-up of deque
 def sliding_window_max(nums, k):
-    leng = len(nums)
-    out_arr = [None for i in range(leng)]
-    for i in range(leng):
-        curr = max(0, leng-i-k)
-        this_item = nums[leng-i-1]
-        while curr < leng-i and (out_arr[curr] == None or out_arr[curr] < this_item):
-            out_arr[curr] = this_item
-            curr += 1
-    return out_arr[:leng-k+1]
-# Under 2 seconds -- major improvement!
+    out_arr = []
+    deque = []
+    def deque_add(ind):
+        nonlocal deque
+        while len(deque) > 0 and nums[deque[-1]] < nums[ind]:
+            deque.pop()
+        deque.append(ind)
+    def deque_maint(new_ind):
+        while deque[0] < new_ind:
+            deque.pop(0)
+    for i in range(k):
+        deque_add(i)
+    for i in range(len(nums)-k+1):
+        deque_add(i+k-1)
+        deque_maint(i)
+        out_arr.append(nums[deque[0]])
+    return out_arr
+# Passes!
+    
+
 
 if __name__ == '__main__':
     # Use the main function here to test out your implementation 
