@@ -15,16 +15,25 @@ Returns: an integer
 #         if match == False:
 #             return arr[i]
 
-# Second run: group version (O(n) runtime, one pass, but memory is based on size of set.)
-# There seems to be a tradeoff between runtime and storage complexity
+# # Second run: group version (O(n) runtime, one pass, but memory is based on size of set.)
+# # There seems to be a tradeoff between runtime and storage complexity
+# def single_number(arr):
+#     found = set()
+#     for x in arr:
+#         if x in found:
+#             found.remove(x)
+#         else:
+#             found.add(x)
+#     return list(found)[0]
+
+# This works on the same logic, but with no memory other than the array passed in:
 def single_number(arr):
-    found = set()
-    for x in arr:
-        if x in found:
-            found.remove(x)
+    while len(arr) > 1:
+        x = arr.pop()
+        if arr.count(x) == 0:
+            return x
         else:
-            found.add(x)
-    return list(found)[0]
+            arr.remove(x)
 
 if __name__ == '__main__':
     # Use the main function to test your implementation
