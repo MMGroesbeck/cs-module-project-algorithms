@@ -28,22 +28,39 @@ Returns: a List of integers
 #     return nums[:len(nums)-k+1]
 # # Fails on time: takes over 8 seconds for large n and k
 
-# Third pass, better ring buffer:
+# # Third pass, better ring buffer:
+# def sliding_window_max(nums, k):
+#     frame = [nums[i] for i in range(k)]
+#     oldest = 0
+#     frame_max = max(frame)
+#     for i in range(len(nums) - k + 1):
+#         nums[i] = frame_max
+#         if i < len(nums) - k:
+#             frame[oldest] = nums[i+k]
+#             if oldest == k-1:
+#                 oldest = 0
+#             else:
+#                 oldest += 1
+#             frame_max = max(frame)
+#     return nums[:len(nums)-k+1]
+# # Still over 8 seconds. Updating frame_max only when item removed from frame == frame_max did not improve.
+
+# # Another approach:
+# def sliding_window_max(nums, k):
+#     for i in range(len(nums)):
+#         for j in range(k):
+#             if i-j >= 0 and i-j <= len(nums)-k:
+#                 if nums[i] > nums[i-j]:
+#                     nums[i-j] = nums[i]
+#     return nums[:len(nums)-k+1]
+# # Still too slow.
+
 def sliding_window_max(nums, k):
-    frame = [nums[i] for i in range(k)]
-    oldest = 0
-    frame_max = max(frame)
-    for i in range(len(nums) - k + 1):
-        nums[i] = frame_max
-        if i < len(nums) - k:
-            frame[oldest] = nums[i+k]
-            if oldest == k-1:
-                oldest = 0
-            else:
-                oldest += 1
-            frame_max = max(frame)
+    for i in range(len(nums)-k+1):
+        r = min(i+k, len(nums))
+        nums[i] = max(nums[i:r])
     return nums[:len(nums)-k+1]
-# Still over 8 seconds. Updating frame_max only when item removed from frame == frame_max did not improve.
+# Even slower
     
 
 if __name__ == '__main__':

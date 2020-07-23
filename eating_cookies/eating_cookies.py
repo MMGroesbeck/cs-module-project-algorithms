@@ -73,6 +73,7 @@ def eating_cookies(n, arr=None):
     else:
         arr[n] = eating_cookies(n-1, arr) + eating_cookies(n-2, arr) + eating_cookies(n-3, arr)
         return arr[n]
+    # Uses O(n) storage, though that storage may be passed in as an array of zeroes
 
 
 if __name__ == "__main__":
