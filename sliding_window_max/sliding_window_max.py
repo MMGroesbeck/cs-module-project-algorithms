@@ -166,6 +166,18 @@ Returns: a List of integers
 #     return out_arr[:leng - k]
 #  # Broken -- check indices
 
+def sliding_window_max(nums, k):
+    leng = len(nums)
+    out_arr = [None for i in range(leng)]
+    for i in range(leng):
+        curr = max(0, leng-i-k)
+        this_item = nums[leng-i-1]
+        while curr < leng-i and (out_arr[curr] == None or out_arr[curr] < this_item):
+            out_arr[curr] = this_item
+            curr += 1
+    return out_arr[:leng-k+1]
+# Under 2 seconds -- major improvement!
+
 if __name__ == '__main__':
     # Use the main function here to test out your implementation 
     arr = [1, 3, -1, -3, 5, 3, 6, 7]
